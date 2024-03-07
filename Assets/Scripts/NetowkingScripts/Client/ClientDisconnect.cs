@@ -20,8 +20,5 @@ public class ClientDisconnect
             networkManager.Shutdown();
             SceneManager.LoadScene("MainMenuScene");
         }
-
     }
-
-  
 }

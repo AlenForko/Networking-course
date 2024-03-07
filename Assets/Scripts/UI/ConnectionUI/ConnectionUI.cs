@@ -9,10 +9,8 @@ public class ConnectionUI : MonoBehaviour
     private VisualElement _rootElement;
     private Button _clientJoinBUtton;
     private Button _serverConnectButton;
-
     private Label _connectionLable;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         _uIDocument = GetComponent<UIDocument>();
@@ -62,7 +60,4 @@ public class ConnectionUI : MonoBehaviour
         _connectionLable.text = "I am a client with an id : " + clientID;
         HideConnectionButtons();
     }
-
-
-
 }

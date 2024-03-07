@@ -57,8 +57,4 @@ public class MainMenu : MonoBehaviour
         lobbyGameObjectUI.SetActive(true);
         gameObject.SetActive(false);
     }
-
- 
-
-   
 }

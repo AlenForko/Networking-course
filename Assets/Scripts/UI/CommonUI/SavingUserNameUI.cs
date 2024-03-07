@@ -13,7 +13,7 @@ public class SavingUserNameUI : MonoBehaviour
     {
         String userName = PlayerPrefs.GetString("userName");
         if (userName.Trim().Equals(String.Empty)) return;
-        GoToScene();
+        //GoToScene();
     }
 
     public void SaveButtonClicked()

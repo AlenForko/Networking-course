@@ -19,19 +19,15 @@ public class NetworkTransformClientAuth : NetworkTransform
     }
     protected override void Update()
     {
-
         base.Update();
-
-
-        if(!IsOwner) return;
-        if(IsHost || IsServer) return;
         
+        if(!IsOwner) return;
+        
+        if(IsHost || IsServer) return;
 
         CanCommitToTransform = IsOwner;
-        if(NetworkManager.IsConnectedClient){
+        
+        if(NetworkManager.IsConnectedClient)
             TryCommitTransformToServer(transform, NetworkManager.LocalTime.Time);
-        }
-
     }
-
 }

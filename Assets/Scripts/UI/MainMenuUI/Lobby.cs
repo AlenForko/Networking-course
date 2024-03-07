@@ -40,10 +40,6 @@ public class Lobby : MonoBehaviour
         _refreshButton.clicked += RefreshLobbies;
         //_listLobbiesScrollView.Add(CreateLobbyContainer(i));
         RefreshLobbies();
-
-
-
-
     }
 
     private void OnDisable()
@@ -51,11 +47,8 @@ public class Lobby : MonoBehaviour
         _backButton.clicked -= BackToMainMenu;
         _refreshButton.clicked -= RefreshLobbies;
     }
-
-
-
- 
- private VisualElement CreateLobbyContainer(String userName, String joinCode, int currentPlayerCount, int maxPlayerCount)
+    
+    private VisualElement CreateLobbyContainer(String userName, String joinCode, int currentPlayerCount, int maxPlayerCount)
     {
         VisualElement lobbyContainer = new VisualElement();
         lobbyContainer.AddToClassList("lobbyContainer");
@@ -115,8 +108,6 @@ public class Lobby : MonoBehaviour
             VisualElement lobbyCountainer = CreateLobbyContainer("Uknown Lobby Name", joinCode, currentPlayerCount, maxPlayerCount);
             _listLobbiesScrollView.Add(lobbyCountainer);
         }
-
-
     }
 
     private void BackToMainMenu()
@@ -124,7 +115,4 @@ public class Lobby : MonoBehaviour
         mainMenuGO.SetActive(true);
         gameObject.SetActive(false);
     }
-
-
-   
 }

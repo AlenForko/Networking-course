@@ -6,8 +6,7 @@ public class SingleBullet : MonoBehaviour
     [SerializeField] int bulletSpeed = 200;
 
     [SerializeField] float lifeSpan = 2;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         rb.velocity = transform.up * bulletSpeed;
@@ -23,8 +22,4 @@ public class SingleBullet : MonoBehaviour
     {
         KillBullet();
     }
-
-
-
-
 }
