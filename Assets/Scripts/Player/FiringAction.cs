@@ -10,6 +10,9 @@ public class FiringAction : NetworkBehaviour
     [SerializeField] GameObject clientSingleBulletPrefab;
     [SerializeField] GameObject serverSingleBulletPrefab;
     [SerializeField] Transform bulletSpawnPoint;
+        
+    public float shootingCooldown = 0.5f;
+    private float lastShootTime;
     
     public override void OnNetworkSpawn()
     {
@@ -18,18 +21,26 @@ public class FiringAction : NetworkBehaviour
 
     private void Fire(bool isShooting)
     {
-
-        if (isShooting)
+        if (isShooting && Time.time >= lastShootTime + shootingCooldown)
         {
+            lastShootTime = Time.time;
             ShootLocalBullet();
         }
     }
-
+    private void ShootLocalBullet()
+    {
+        GameObject bullet = Instantiate(clientSingleBulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), transform.GetComponent<Collider2D>());
+        Debug.Log("Shooting locally");
+        ShootBulletServerRpc();
+    }
+    
     [ServerRpc]
     private void ShootBulletServerRpc()
     {
         GameObject bullet = Instantiate(serverSingleBulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), transform.GetComponent<Collider2D>());
+        Debug.Log("Shooting from serverRPC");
         ShootBulletClientRpc();
     }
 
@@ -39,13 +50,6 @@ public class FiringAction : NetworkBehaviour
         if (IsOwner) return;
         GameObject bullet = Instantiate(clientSingleBulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), transform.GetComponent<Collider2D>());
-    }
-
-    private void ShootLocalBullet()
-    {
-        GameObject bullet = Instantiate(clientSingleBulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), transform.GetComponent<Collider2D>());
-
-        ShootBulletServerRpc();
+        Debug.Log("Shooting from clientRPC");
     }
 }
