@@ -3,11 +3,12 @@ using Unity.Netcode;
 public class Health : NetworkBehaviour
 {
     public NetworkVariable<int> currentHealth = new NetworkVariable<int>();
+    public int maxHealth = 100;
     
     public override void OnNetworkSpawn()
     {
         if(!IsServer) return;
-        currentHealth.Value = 100;
+        currentHealth.Value = maxHealth;
     }
 
 
@@ -16,4 +17,11 @@ public class Health : NetworkBehaviour
         currentHealth.Value += damage;
     }
 
+    public void ReplenishHealth(int amount)
+    {
+        if (currentHealth.Value >= maxHealth) return;
+        
+        currentHealth.Value += amount;
+        if (currentHealth.Value > maxHealth) currentHealth.Value = maxHealth;
+    }
 }
