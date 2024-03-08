@@ -18,7 +18,7 @@ public class HealthKit : NetworkBehaviour
 
         if (!health) return;
         
-        if(health.currentHealth.Value >= health.maxHealth) return;
+        if(health.currentHealth.Value >= health.MaxHealth) return;
         
         health.ReplenishHealth(10);
         

@@ -34,7 +34,6 @@ public class ClientManager : ScriptableObject
         NetworkManager.Singleton.NetworkConfig.ConnectionData = UserDataWrapper.PayLoadInBytes();
 
         NetworkManager.Singleton.StartClient();
+        
     }
-
-
 }
