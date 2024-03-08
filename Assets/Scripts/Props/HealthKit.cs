@@ -10,6 +10,13 @@ public class HealthKit : NetworkBehaviour
 {
     [SerializeField] private GameObject healthkitPrefab;
 
+    private Camera _mainCamera;
+
+    public override void OnNetworkSpawn()
+    {
+        _mainCamera = Camera.main;
+    }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(!IsServer) return;
@@ -22,11 +29,10 @@ public class HealthKit : NetworkBehaviour
         
         health.ReplenishHealth(10);
         
-        float xPosition = Random.Range(-4, 4);
-        float yPosition = Random.Range(-2, 2);
+        Vector3 randomWorldPoint = RandomPointUtility.GetRandomWorldPointInCamera(_mainCamera);
 
         GameObject newHealthKit =
-            Instantiate(healthkitPrefab, new Vector3(xPosition, yPosition, 0), quaternion.identity);
+            Instantiate(healthkitPrefab, randomWorldPoint, quaternion.identity);
 
         NetworkObject networkObject = newHealthKit.GetComponent<NetworkObject>();
         networkObject.Spawn();

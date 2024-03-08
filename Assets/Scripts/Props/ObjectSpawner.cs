@@ -8,14 +8,19 @@ public class ObjectSpawner : NetworkBehaviour
     [SerializeField] private GameObject minePref;
     [SerializeField] private GameObject healthKitPref;
     
+    private Camera _mainCamera;
+    
     public override void OnNetworkSpawn()
-    {   if (!IsServer) return;
+    {   
+        _mainCamera = Camera.main;
+        
+        if (!IsServer) return;
+        
         if (minePref != null)
         {
-            float xPosition = Random.Range(-4, 4);
-            float yPosition = Random.Range(-2, 2);
+            Vector3 randomWorldPoint = RandomPointUtility.GetRandomWorldPointInCamera(_mainCamera);
             
-            GameObject mine = Instantiate(minePref, new Vector3(xPosition, yPosition, 0), quaternion.identity);
+            GameObject mine = Instantiate(minePref, randomWorldPoint, quaternion.identity);
             
             NetworkObject networkObject = mine.GetComponent<NetworkObject>();
             networkObject.Spawn();
@@ -23,10 +28,9 @@ public class ObjectSpawner : NetworkBehaviour
 
         if (healthKitPref != null)
         {
-            float xPosition = Random.Range(-4, 4);
-            float yPosition = Random.Range(-2, 2);
+            Vector3 randomWorldPoint = RandomPointUtility.GetRandomWorldPointInCamera(_mainCamera);
             
-            GameObject health = Instantiate(healthKitPref, new Vector3(xPosition, yPosition, 0), quaternion.identity);
+            GameObject health = Instantiate(healthKitPref, randomWorldPoint, quaternion.identity);
             NetworkObject networkObject = health.GetComponent<NetworkObject>();
             networkObject.Spawn();
         }
