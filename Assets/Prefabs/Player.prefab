@@ -157,6 +157,13 @@ MonoBehaviour:
   movementSpeed: 5
   shipRotationSpeed: 100
   turretRotationSpeed: 4
+  movingSprites:
+  - {fileID: 21300000, guid: c0592a6fff08d32429834c425bbe6372, type: 3}
+  - {fileID: 21300000, guid: 8615dbde87caf3a4aa13ebde985b8e6e, type: 3}
+  - {fileID: 21300000, guid: e611454672fff0d4d945cac532bc4fb9, type: 3}
+  - {fileID: 21300000, guid: 9c6f2e886935b1e4f976a5f09102f72b, type: 3}
+  stationarySprite: {fileID: 21300000, guid: 537331b1d3dbc0b4fa7b5f4bafdd7a4d, type: 3}
+  spriteChangeDelay: 0.2
 --- !u!212 &214913618731102450
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -283,6 +290,7 @@ MonoBehaviour:
   clientSingleBulletPrefab: {fileID: 6137059209113163129, guid: eb95cbada454d9c4c8bd843bb9424b33, type: 3}
   serverSingleBulletPrefab: {fileID: 2699881094025181072, guid: 5a0f856cf7b9d3c4abbaba622df545d5, type: 3}
   bulletSpawnPoint: {fileID: 662702000496822912}
+  shootingCooldown: 0.5
 --- !u!114 &1795185787946825641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +305,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth:
     m_InternalValue: 100
+  currentLives:
+    m_InternalValue: 0
+  _maxHealth: 100
 --- !u!70 &117897365439605971
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -345,7 +356,74 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName:
-    m_InternalValue: 
+    m_InternalValue:
+      utf8LengthInBytes: 0
+      bytes:
+        offset0000:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        offset0016:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        offset0032:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        byte0048: 0
+        byte0049: 0
+        byte0050: 0
+        byte0051: 0
+        byte0052: 0
+        byte0053: 0
+        byte0054: 0
+        byte0055: 0
+        byte0056: 0
+        byte0057: 0
+        byte0058: 0
+        byte0059: 0
+        byte0060: 0
+        byte0061: 0
 --- !u!1 &3147725339021067429
 GameObject:
   m_ObjectHideFlags: 0
