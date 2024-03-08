@@ -9,7 +9,7 @@ public class ObjectSpawner : NetworkBehaviour
     [SerializeField] private GameObject healthKitPref;
     
     public override void OnNetworkSpawn()
-    {   
+    {   if (!IsServer) return;
         if (minePref != null)
         {
             float xPosition = Random.Range(-4, 4);

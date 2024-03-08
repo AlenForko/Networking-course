@@ -18,6 +18,8 @@ public class Health : NetworkBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (!IsServer) return;
+        
         damage = damage < 0 ? damage : -damage;
         currentHealth.Value += damage;
 
