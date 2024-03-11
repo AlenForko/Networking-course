@@ -163,7 +163,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e611454672fff0d4d945cac532bc4fb9, type: 3}
   - {fileID: 21300000, guid: 9c6f2e886935b1e4f976a5f09102f72b, type: 3}
   stationarySprite: {fileID: 21300000, guid: 537331b1d3dbc0b4fa7b5f4bafdd7a4d, type: 3}
-  spriteChangeDelay: 0.2
+  spriteChangeDelay: 0.4
 --- !u!212 &214913618731102450
 SpriteRenderer:
   m_ObjectHideFlags: 0

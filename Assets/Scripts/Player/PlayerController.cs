@@ -39,7 +39,7 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
     public override void OnNetworkSpawn()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        
+        _isMoving.OnValueChanged += MoveSpriteAnmiation;
         if(!IsOwner) return;
 
         if (_playerInput == null)
@@ -54,7 +54,12 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
         turretPivotTransform = transform.Find("PivotTurret");
         if (turretPivotTransform == null) Debug.LogError("PivotTurret is not found", gameObject);
     }
-    
+
+    public override void OnNetworkDespawn()
+    {
+        _isMoving.OnValueChanged -= MoveSpriteAnmiation;
+    }
+
     public void OnFire(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -71,8 +76,6 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
     {
         _moveInput = context.ReadValue<Vector2>();  
         _isMoving.Value = _moveInput.magnitude > 0.01f;
-        
-        MovingSpriteServerRPC();
     }
 
     private void FixedUpdate()
@@ -104,22 +107,17 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
             
             yield return new WaitForSeconds(spriteChangeDelay);
         }
-        spriteChangeCoroutine = null;
-        _spriteRenderer.sprite = stationarySprite;
-    } 
-
-    [ServerRpc]
-    void MovingSpriteServerRPC()
-    {
-        MovingSpriteClientRpc();
     }
-    
-    [ClientRpc]
-    void MovingSpriteClientRpc()
+
+    void MoveSpriteAnmiation(bool oldValue, bool newValue)
     {
-        if (_isMoving.Value && spriteChangeCoroutine == null)
-        {
+        if (newValue && spriteChangeCoroutine == null) 
             spriteChangeCoroutine = StartCoroutine(ChangeMovingSprite());
+        else if (spriteChangeCoroutine != null)
+        {
+            StopCoroutine(spriteChangeCoroutine);
+            spriteChangeCoroutine = null;
+            _spriteRenderer.sprite = stationarySprite;
         }
     }
 }
