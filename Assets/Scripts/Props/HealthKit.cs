@@ -29,7 +29,7 @@ public class HealthKit : NetworkBehaviour
         
         health.ReplenishHealth(10);
         
-        Vector3 randomWorldPoint = RandomPointUtility.GetRandomWorldPointInCamera(_mainCamera);
+        Vector3 randomWorldPoint = RandomPointUtility.GetRandomWorldPointInCamera();
 
         GameObject newHealthKit =
             Instantiate(healthkitPrefab, randomWorldPoint, quaternion.identity);

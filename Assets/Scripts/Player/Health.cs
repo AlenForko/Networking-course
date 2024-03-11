@@ -63,7 +63,7 @@ public class Health : NetworkBehaviour
     
     private void Respawn()
     {
-        transform.position = Vector3.zero;
+        transform.position = RandomPointUtility.GetRandomWorldPointInCamera();
         transform.rotation = quaternion.identity;
     }
 }

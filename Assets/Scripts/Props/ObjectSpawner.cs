@@ -18,7 +18,7 @@ public class ObjectSpawner : NetworkBehaviour
         
         if (minePref != null)
         {
-            Vector3 randomWorldPoint = RandomPointUtility.GetRandomWorldPointInCamera(_mainCamera);
+            Vector3 randomWorldPoint = RandomPointUtility.GetRandomWorldPointInCamera();
             
             GameObject mine = Instantiate(minePref, randomWorldPoint, quaternion.identity);
             
@@ -28,7 +28,7 @@ public class ObjectSpawner : NetworkBehaviour
 
         if (healthKitPref != null)
         {
-            Vector3 randomWorldPoint = RandomPointUtility.GetRandomWorldPointInCamera(_mainCamera);
+            Vector3 randomWorldPoint = RandomPointUtility.GetRandomWorldPointInCamera();
             
             GameObject health = Instantiate(healthKitPref, randomWorldPoint, quaternion.identity);
             NetworkObject networkObject = health.GetComponent<NetworkObject>();

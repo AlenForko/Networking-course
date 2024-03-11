@@ -23,7 +23,7 @@ public class StandardMine : NetworkBehaviour
        if(!health) return;
        health.TakeDamage(25);
 
-       Vector3 randomWorldPoint = RandomPointUtility.GetRandomWorldPointInCamera(_mainCamera);
+       Vector3 randomWorldPoint = RandomPointUtility.GetRandomWorldPointInCamera();
 
        
        GameObject newMine = Instantiate(minePrefab, randomWorldPoint, Quaternion.identity);
