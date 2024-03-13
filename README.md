@@ -25,7 +25,7 @@ Added a cooldown when shooting, I am un-sure if this system works, but based on 
 ## 8. Shield Power-up
 [Shield.cs](https://github.com/AlenForko/Networking-course/blob/main/Assets/Scripts/Player/Shield.cs) / [ShieldProp](https://github.com/AlenForko/Networking-course/blob/main/Assets/Scripts/Props/ShieldProp.cs)
 
-A shield power-up is added to the game, functioning similarly to health packs and mines. When picked up, it grants the player a shield that absorbs 2 hits. The shield status is synchronized across all clients. If the shield depletes, it's removed until the player picks up another. Damage first affects the shield, then the player's health.
+A shield power-up is added to the game, functioning similarly to health packs and mines. When picked up, it grants the player a shield that absorbs 2 hits. The shield status is synchronized across all clients. If the shield depletes, it's removed until the player picks up another. Damage first affects the shield, then the player's health. This can be seen in [Health.cs](https://github.com/AlenForko/Networking-course/blob/main/Assets/Scripts/Player/Health.cs).
 
 ## 9. Player Death
 [Health.cs](https://github.com/AlenForko/Networking-course/blob/main/Assets/Scripts/Player/Health.cs)
