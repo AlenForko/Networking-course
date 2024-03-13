@@ -1,28 +1,18 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.Netcode;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class HealthKit : NetworkBehaviour
 {
     [SerializeField] private GameObject healthkitPrefab;
-
-    private Camera _mainCamera;
-
-    public override void OnNetworkSpawn()
-    {
-        _mainCamera = Camera.main;
-    }
     
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(!IsServer) return;
 
         Health health = other.GetComponent<Health>();
-
+        Shield shield = other.GetComponent<Shield>();
+        
         if (!health) return;
         
         if(health.currentHealth.Value >= health.MaxHealth) return;

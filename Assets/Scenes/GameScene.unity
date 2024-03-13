@@ -176,6 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minePref: {fileID: 3648826164932723673, guid: bfd4ce158c3e0634c826acb7fa2e187a, type: 3}
   healthKitPref: {fileID: 8501310265695983662, guid: ca026ab2aa358ef49b73c1831199251d, type: 3}
+  shieldPref: {fileID: 6081162204163132386, guid: aba37b70a1bdd37499825acfcdd8f01b, type: 3}
 --- !u!4 &255589411
 Transform:
   m_ObjectHideFlags: 0

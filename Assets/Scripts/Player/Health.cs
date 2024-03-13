@@ -8,17 +8,26 @@ public class Health : NetworkBehaviour
     public NetworkVariable<int> currentLives = new NetworkVariable<int>();
     [SerializeField]private int _maxHealth = 100;
 
+    private Shield _shield;
     public int MaxHealth => _maxHealth;
 
     public override void OnNetworkSpawn()
     {
         currentHealth.Value = _maxHealth;
         currentLives.Value = 3;
+        _shield = GetComponent<Shield>();
     }
 
     public void TakeDamage(int damage)
     {
         if (!IsServer) return;
+
+        if (_shield.hasShield.Value)
+        {
+            _shield.TakeShieldDamage(1);
+            Debug.Log("Shield amount: " + _shield.currentShieldAmount.Value);
+            return;
+        }
         
         damage = damage < 0 ? damage : -damage;
         currentHealth.Value += damage;
@@ -26,6 +35,7 @@ public class Health : NetworkBehaviour
         if (currentHealth.Value <= 0)
         {
             PlayerDeath();
+            Debug.Log("Health amount: " + currentHealth.Value);
         }
     }
     

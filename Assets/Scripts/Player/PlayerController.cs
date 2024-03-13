@@ -12,7 +12,7 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
     private Vector2 _moveInput = new();
     private Vector2 _cursorLocation;
 
-    private Transform _shipTransform;
+    private Shield _shield;
     private Rigidbody2D _rb;
 
     private Transform turretPivotTransform;
@@ -31,6 +31,7 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
     [Header("Sprites Settings")]
     [SerializeField] private Sprite[] movingSprites;
     [SerializeField] private Sprite stationarySprite;
+    [SerializeField] private GameObject shieldGameObject;
     [SerializeField] private float spriteChangeDelay = 0.2f;
     
     private Coroutine spriteChangeCoroutine;
@@ -38,8 +39,12 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
     
     public override void OnNetworkSpawn()
     {
+        _shield = GetComponent<Shield>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _isMoving.OnValueChanged += MoveSpriteAnmiation;
+        _isMoving.OnValueChanged += MoveSpriteAnimation;
+        _shield.hasShield.OnValueChanged += ActivateShieldSprite;
+        
+        shieldGameObject.SetActive(false);
         if(!IsOwner) return;
 
         if (_playerInput == null)
@@ -50,14 +55,14 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
         _playerInput.Player.Enable();
 
         _rb = GetComponent<Rigidbody2D>();
-        _shipTransform = transform;
         turretPivotTransform = transform.Find("PivotTurret");
         if (turretPivotTransform == null) Debug.LogError("PivotTurret is not found", gameObject);
     }
 
     public override void OnNetworkDespawn()
     {
-        _isMoving.OnValueChanged -= MoveSpriteAnmiation;
+        _isMoving.OnValueChanged -= MoveSpriteAnimation;
+        _shield.hasShield.OnValueChanged -= ActivateShieldSprite;
     }
 
     public void OnFire(UnityEngine.InputSystem.InputAction.CallbackContext context)
@@ -109,7 +114,7 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
         }
     }
 
-    void MoveSpriteAnmiation(bool oldValue, bool newValue)
+    void MoveSpriteAnimation(bool oldValue, bool newValue)
     {
         if (newValue && spriteChangeCoroutine == null) 
             spriteChangeCoroutine = StartCoroutine(ChangeMovingSprite());
@@ -118,6 +123,18 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
             StopCoroutine(spriteChangeCoroutine);
             spriteChangeCoroutine = null;
             _spriteRenderer.sprite = stationarySprite;
+        }
+    }
+
+    void ActivateShieldSprite(bool oldValue, bool newValue)
+    {
+        if (newValue)
+        {
+            shieldGameObject.SetActive(true);
+        }
+        else if (oldValue)
+        {
+            shieldGameObject.SetActive(false);
         }
     }
 }

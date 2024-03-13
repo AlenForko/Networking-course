@@ -7,20 +7,17 @@ public class StandardMine : NetworkBehaviour
 {
     
    [SerializeField] GameObject minePrefab;
-   private Camera _mainCamera;
-
-   public override void OnNetworkSpawn()
-   {
-       _mainCamera = Camera.main;
-   }
    
    void OnTriggerEnter2D(Collider2D other)
    {
        if (!IsServer) return;
        
        Health health = other.GetComponent<Health>();
+       Shield shield = other.GetComponent<Shield>();
        
-       if(!health) return;
+       if(!health && !shield) return;
+       
+       
        health.TakeDamage(25);
 
        Vector3 randomWorldPoint = RandomPointUtility.GetRandomWorldPointInCamera();

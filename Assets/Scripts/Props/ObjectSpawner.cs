@@ -7,13 +7,10 @@ public class ObjectSpawner : NetworkBehaviour
 {
     [SerializeField] private GameObject minePref;
     [SerializeField] private GameObject healthKitPref;
-    
-    private Camera _mainCamera;
+    [SerializeField] private GameObject shieldPref;
     
     public override void OnNetworkSpawn()
     {   
-        _mainCamera = Camera.main;
-        
         if (!IsServer) return;
         
         if (minePref != null)
@@ -32,6 +29,15 @@ public class ObjectSpawner : NetworkBehaviour
             
             GameObject health = Instantiate(healthKitPref, randomWorldPoint, quaternion.identity);
             NetworkObject networkObject = health.GetComponent<NetworkObject>();
+            networkObject.Spawn();
+        }
+
+        if (shieldPref != null)
+        {
+            Vector3 randomWorldPoint = RandomPointUtility.GetRandomWorldPointInCamera();
+            
+            GameObject shield = Instantiate(shieldPref, randomWorldPoint, quaternion.identity);
+            NetworkObject networkObject = shield.GetComponent<NetworkObject>();
             networkObject.Spawn();
         }
     }
