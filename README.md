@@ -22,6 +22,11 @@ Incorporating a sprite list for movement animation, a coroutine cycles through t
 
 Added a cooldown when shooting, I am un-sure if this system works, but based on my testing it seems to be fully functional.
 
+## 8. Shield Power-up
+[Shield.cs](https://github.com/AlenForko/Networking-course/blob/main/Assets/Scripts/Player/Shield.cs) / [ShieldProp](https://github.com/AlenForko/Networking-course/blob/main/Assets/Scripts/Props/ShieldProp.cs)
+
+A shield power-up is added to the game, functioning similarly to health packs and mines. When picked up, it grants the player a shield that absorbs 2 hits. The shield status is synchronized across all clients. If the shield depletes, it's removed until the player picks up another. Damage first affects the shield, then the player's health.
+
 ## 9. Player Death
 [Health.cs](https://github.com/AlenForko/Networking-course/blob/main/Assets/Scripts/Player/Health.cs)
 
@@ -31,3 +36,4 @@ When a player's health reaches zero or below, their NetworkObject is despawned. 
 [Health.cs](https://github.com/AlenForko/Networking-course/blob/main/Assets/Scripts/Player/Health.cs)
 
 Players are assigned three lives, tracked through a NetworkVariable. Upon death, the lives decrement by one, and respawning involves resetting health and teleporting the player to a random position in the screen. Transitioning from server to owner methods for setting transform and health is facilitated via Remote Procedure Calls (RPCs). Once a player exhausts their lives, they are permanently despawned.
+
